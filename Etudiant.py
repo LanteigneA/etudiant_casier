@@ -18,15 +18,16 @@ class Etudiant:
     ###################################
     #####  MÉTHODE CONSTRUCTEUR  #####
     ###################################
-    def __init__(self,p_num="",p_nom="",p_prog=""):
+    def __init__(self,p_num="",p_nom="",p_prog="",p_date_naiss=""):
         """
                 Méthode de type Constructeur avec paramètres et valeurs par défaut
                 Définition des attributs d'un étudiant
         """
         self.Num_Etud = p_num
         self.Nom_Etud = p_nom
-        self.Programme=p_prog
-        # ajouter self.date_naiss
+        self.Programme = p_prog
+        self.Date_Naiss = p_date_naiss
+
 
     ############################################
     #####  MÉTHODES D'ACCÈS ET PROPRIÉTÉS  #####
@@ -43,11 +44,8 @@ class Etudiant:
                 Méthode spéciale d'affichage. À utiliser avec print(objet)
                 :return: Chaine à afficher
         """
-
-
-        chaine = " "*30+"\n"+"*"*30+"\n\n"+"   Le numéro de l'étudiant : "+self.Num_Etud+"\n"+ "   Le nom de l'étudiant : "+self.Nom_Etud+"\n"+"   Le programme de l'étudiant : "+self.Programme\
-                + "\n\n"+"*"*30
-
+        chaine = " "*60+"\n"+"*"*60+"\n\n"+"   Le numéro de l'étudiant : "+self.Num_Etud+"\n"+ "   Le nom de l'étudiant : "+self.Nom_Etud+"\n"+\
+                 "   Le programme de l'étudiant : "+self.Programme+"\n"+"   La date de naissance de l'étudiant : "+self.Date_Naiss + "\n\n"+"*"*60
         return chaine
 
     ############################################

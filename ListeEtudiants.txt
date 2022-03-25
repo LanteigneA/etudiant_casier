@@ -1,0 +1,17 @@
+                                                            
+************************************************************
+
+   Le numéro de l'étudiant : 111
+   Le nom de l'étudiant : Hasna
+   Le programme de l'étudiant : Technique de l'informatique
+   La date de naissance de l'étudiant : 2000-01-01
+
+************************************************************                                                            
+************************************************************
+
+   Le numéro de l'étudiant : 777
+   Le nom de l'étudiant : hhh
+   Le programme de l'étudiant : Technique de l'informatique
+   La date de naissance de l'étudiant : 2000-01-01
+
+************************************************************

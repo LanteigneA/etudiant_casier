@@ -4,7 +4,7 @@
 ###  Nom: Hasna Hocini
 ###  No étudiant: 123456
 ###  No Groupe:
-###  Description du fichier: Programme principal
+###  Description du fichier: Programme principal - version brouillon à corriger et améliorer
 ####################################################################################
 
 
@@ -20,6 +20,8 @@ from PyQt5 import QtWidgets
 
 # Pour le gestionnaire d'événement
 from PyQt5.QtCore import pyqtSlot
+
+
 
 # Importer Pour le model de la listView
 
@@ -52,7 +54,7 @@ def valider_nom(p_nom):
      :param p_nom:  le nom de l'étudiant
      :return: retrourne True est le nom est alphabétique et False sinon
     """
-    if p_nom.isalpha() :
+    if  p_nom.isalpha() :
         return True
     else :
         return False
@@ -64,10 +66,10 @@ def valider_num(p_num):
          :param p_num:  le numéro d'étudiant
          :return: True si parm p_num est numérique et False sinon
         """
-    for car in p_num:
-        if car not in "0123456789":
-            return False
-    return True
+    if p_num.isnumeric():
+        return True
+    else :
+        return False
 
 def valider_date(p_date):
 
@@ -76,9 +78,8 @@ def valider_date(p_date):
          :param p_num : le numéro d'étudiant
          :return: True si parm p_date est valide et False sinon
         """
+    # Essaye de comprendre ce code. Est-il correct ?
     import datetime
-    print(datetime.date.today().year)
-    print(p_date.year())
     if datetime.date.today().year - p_date.year() > 18:
         return True
     elif datetime.date.today().year - p_date.year() == 18:
@@ -132,6 +133,8 @@ class demoQt(QtWidgets.QMainWindow, interfacegraphique_.Ui_MainWindow):
         super(demoQt, self).__init__(parent)
         # Préparer l'interface utilisateur.
         self.setupUi(self)
+        # Cacher les messages d'erreurs des labels
+
 
     # Utiliser le décorateur ici
     @pyqtSlot()
@@ -140,21 +143,24 @@ class demoQt(QtWidgets.QMainWindow, interfacegraphique_.Ui_MainWindow):
         """
         Gestionnaire d'évènement pour le bouton Ajouter
         """
-
         nom = self.lineEdit_nom.text()
         valid_nom = valider_nom(nom)
+        # On aurait pu nous passer de la variable nom
         valid_num = valider_num(self.lineEdit_numero.text())
         valid_date = valider_date(self.dateEdit_DNaiss.date())
+        print(valid_nom)
+        # Cacher les labels qui affichent les différentes erreurs
+        self.label_erreur_nom.setVisible(False)
+        self.label_erreur_numero.setVisible(False)
+        self.label_erreur_date.setVisible(False)
+        self.label_erreur_Etu_Existe.setVisible(False)
+        # Si le nom, le numéro et la date de naissance sont valides :
+        if valid_nom and valid_num and valid_date and verifier_etudiant_liste(self.lineEdit_numero.text())== False :
 
-        # On aurait pu nous passer des variables valid_nom, valid_num et nom :
-        #if  valider_nom(self.lineEdit_nom.text()) and valider_num(self.lineEdit_numero.text()) and valider_date(self.dateEdit_DNaiss.date()):
-        if valid_nom and valid_num and valid_date :
-            self.label_erreur.setVisible(False)
             # Tester si l'étudiant a déjà été ajouté
-            if  verifier_etudiant_liste(self.lineEdit_numero.text())== False :
-                 # Instancier un objet Etudiant avec le nom, numéro éudiant et le programme entrés par l'utilisateur
 
-                 etud = Etudiant(self.lineEdit_numero.text(), self.lineEdit_nom.text(), self.comboBox_programme.currentText())
+                 # Instancier un objet Etudiant avec le nom, numéro éudiant et le programme entrés par l'utilisateur
+                 etud = Etudiant(self.lineEdit_numero.text(), self.lineEdit_nom.text(), self.comboBox_programme.currentText(),self.dateEdit_DNaiss.text())
                  # Ajouter l'objet instancié à la liste des étudiants
                  ls_Etudiants.append(etud)
                  # Ajouter les informations de l'étudiant entré au TextBrowser
@@ -162,34 +168,28 @@ class demoQt(QtWidgets.QMainWindow, interfacegraphique_.Ui_MainWindow):
                  # Effacer les lineEdits du nom et du numéro d'étudiant
                  self.lineEdit_numero.clear()
                  self.lineEdit_nom.clear()
-                 # Sérialiser l'objet instancié
-                 #etud.serialiser("FichierSerialiser.json")
-                 #etud.deserialiser("FichierSerialiser.json")
-                 #print(etud.Nom_Etud)
+                 # # Sérialiser l'objet instancié
+                 # #etud.serialiser("FichierSerialiser.json")
+                 # #etud.deserialiser("FichierSerialiser.json")
+                 # #print(etud.Nom_Etud)
 
-            else :
+        if(verifier_etudiant_liste(self.lineEdit_numero.text())== True)  and valid_num :
+                 # Effacer les lineEdits et afficher le message d'erreur
                  self.lineEdit_numero.clear()
                  self.lineEdit_numero.clear()
-                 self.label_erreur.clear()
-                 self.label_erreur.setText("L'étudiant existe dans la liste des étudiants.")
-                 self.label_erreur.setVisible(True)
-
-        elif valider_nom(self.lineEdit_nom.text())==False and valider_num(self.lineEdit_numero.text()) == True:
+                 self.label_erreur_Etu_Existe.setVisible(True)
+        # si le nom est invalide, afficher un message d'erreur
+        if valid_nom == False :
+            print("H")
             self.lineEdit_nom.clear()
-            self.label_erreur.clear()
-            self.label_erreur.setText("Le nom est invalide. ")
-            self.label_erreur.setVisible(True)
-        elif valider_num(self.lineEdit_numero.text()) == False and valider_nom(self.lineEdit_nom.text()) == True:
+            self.label_erreur_nom.setVisible(True)
+        # Si le numéro d'étudiant est invalide, afficher un message d'erreur
+        if valid_num== False :
             self.lineEdit_numero.clear()
-            self.label_erreur.clear()
-            self.label_erreur.setText("Le numéro est invalide. ")
-            self.label_erreur.setVisible(True)
-        else :
-            self.lineEdit_numero.clear()
-            self.lineEdit_numero.clear()
-            self.label_erreur.clear()
-            self.label_erreur.setText("Le numéro et le nom sont invalides. ")
-            self.label_erreur.setVisible(True)
+            self.label_erreur_numero.setVisible(True)
+        # Si la date de naissance est invalide, afficher un message d'erreur
+        if valid_date== False :
+            self.label_erreur_date.setVisible(True)
 
     @pyqtSlot()
     # Bouton Modifier
@@ -198,6 +198,47 @@ class demoQt(QtWidgets.QMainWindow, interfacegraphique_.Ui_MainWindow):
         Gestionnaire d'évènement pour le bouton Modifier
         """
 
+        # Cacher les labels qui affichent les différentes erreurs
+        self.label_erreur_nom.setVisible(False)
+        self.label_erreur_numero.setVisible(False)
+        self.label_erreur_date.setVisible(False)
+        self.label_erreur_Etu_Inexistant.setVisible(False)
+        print("Setvisible false")
+        nom = self.lineEdit_nom.text()
+        valid_nom = valider_nom(nom)
+        # On aurait pu nous passer de la variable nom
+        valid_num = valider_num(self.lineEdit_numero.text())
+        valid_date = valider_date(self.dateEdit_DNaiss.date())
+        if valid_nom and valid_num and valid_date and verifier_etudiant_liste(self.lineEdit_numero.text()) == True :
+            for elt in ls_Etudiants:
+                if elt.Num_Etud == self.lineEdit_numero.text():
+                    elt.Nom_Etud = nom
+                    elt.Num_Etud = self.lineEdit_numero.text()
+                    elt.Programme = self.comboBox_programme.currentText()
+                    elt.Date_Naiss = self.dateEdit_DNaiss.text()
+            self.textBrowser_afficher.clear()
+            for elt in ls_Etudiants:
+                self.textBrowser_afficher.append(elt.__str__())
+            self.lineEdit_numero.clear()
+            self.lineEdit_nom.clear()
+        else :
+            # si le numéro d'étudiant est valide mais l'étudiant n'existe pas dans la liste des étudiants
+            if verifier_etudiant_liste(self.lineEdit_numero.text()) == False and valid_num:
+                self.label_erreur_Etu_Inexistant.setVisible(True)
+                self.lineEdit_numero.clear()
+
+           # si le nom est invalide, afficher un message d'erreur
+
+            if valid_nom == False:
+                self.lineEdit_nom.clear()
+                self.label_erreur_nom.setVisible(True)
+                # Si le numéro d'étudiant est invalide, afficher un message d'erreur
+            if valid_num == False:
+                self.lineEdit_numero.clear()
+                self.label_erreur_numero.setVisible(True)
+            # Si la date de naissance est invalide, afficher un message d'erreur
+            if valid_date == False:
+                self.label_erreur_date.setVisible(True)
 
     @pyqtSlot()
     # Bouton Supprimer
@@ -205,7 +246,46 @@ class demoQt(QtWidgets.QMainWindow, interfacegraphique_.Ui_MainWindow):
         """
         Gestionnaire d'évènement pour le bouton Supprimer
         """
+        # Cacher les labels qui affichent les différentes erreurs
+        self.label_erreur_nom.setVisible(False)
+        self.label_erreur_numero.setVisible(False)
+        self.label_erreur_date.setVisible(False)
+        self.label_erreur_Etu_Inexistant.setVisible(False)
 
+        nom = self.lineEdit_nom.text()
+        valid_nom = valider_nom(nom)
+        # On aurait pu nous passer de la variable nom
+        valid_num = valider_num(self.lineEdit_numero.text())
+        valid_date = valider_date(self.dateEdit_DNaiss.date())
+
+        if valid_nom and valid_num and valid_date:
+            if verifier_etudiant_liste(self.lineEdit_numero.text()) == False:
+                self.label_erreur_Etu_Inexistant.setVisible(True)
+                self.lineEdit_numero.clear()
+
+            else:
+                for elt in ls_Etudiants:
+                    if elt.Num_Etud == self.lineEdit_numero.text() and elt.Nom_Etud==self.lineEdit_nom.text() and elt.Programme == self.comboBox_programme.currentText() and elt.Date_Naiss == self.dateEdit_DNaiss.text() :
+                        ls_Etudiants.remove(elt)
+                    else :
+                        self.label_erreur_Etu_Inexistant.setVisible(True)
+                self.textBrowser_afficher.clear()
+                for elt in ls_Etudiants:
+                    self.textBrowser_afficher.append(elt.__str__())
+                self.lineEdit_numero.clear()
+                self.lineEdit_nom.clear()
+
+        # si le nom est invalide, afficher un message d'erreur
+        if valid_nom == False:
+            self.lineEdit_nom.clear()
+            self.label_erreur_nom.setVisible(True)
+        # Si le numéro d'étudiant est invalide, afficher un message d'erreur
+        if valid_num == False:
+            self.lineEdit_numero.clear()
+            self.label_erreur_numero.setVisible(True)
+        # Si la date de naissance est invalide, afficher un message d'erreur
+        if valid_date == False:
+            self.label_erreur_date.setVisible(True)
 
     @pyqtSlot()
     # Bouton Sauvegarder
@@ -213,6 +293,45 @@ class demoQt(QtWidgets.QMainWindow, interfacegraphique_.Ui_MainWindow):
         """
         Gestionnaire d'évènement pour le bouton Sauvegarder
         """
+        chaine=""
+        for elt in ls_Etudiants :
+            chaine+=elt.__str__()
+        with open("ListeEtudiants.txt" , "w") as fichier:
+            fichier.write(chaine)
+
+    @pyqtSlot()
+    def on_pushButton_serealiser_clicked(self):
+        print("Serealisr")
+        nom = self.lineEdit_nom.text()
+        valid_nom = valider_nom(nom)
+        # On aurait pu nous passer de la variable nom
+        valid_num = valider_num(self.lineEdit_numero.text())
+        valid_date = valider_date(self.dateEdit_DNaiss.date())
+        print(valid_nom)
+
+        # Cacher les labels qui affichent les différentes erreurs
+        self.label_erreur_nom.setVisible(False)
+        self.label_erreur_numero.setVisible(False)
+        self.label_erreur_date.setVisible(False)
+        self.label_erreur_Etu_Existe.setVisible(False)
+        # Si le nom, le numéro et la date de naissance sont valides :
+        if valid_nom and valid_num and valid_date:
+            etud = Etudiant(self.lineEdit_numero.text(), self.lineEdit_nom.text(),
+                            self.comboBox_programme.currentText(), self.dateEdit_DNaiss.text())
+            etud.serialiser("Serealiser.json")
+
+
+        if valid_nom == False:
+            print("H")
+            self.lineEdit_nom.clear()
+            self.label_erreur_nom.setVisible(True)
+        # Si le numéro d'étudiant est invalide, afficher un message d'erreur
+        if valid_num == False:
+            self.lineEdit_numero.clear()
+            self.label_erreur_numero.setVisible(True)
+        # Si la date de naissance est invalide, afficher un message d'erreur
+        if valid_date == False:
+            self.label_erreur_date.setVisible(True)
 
     # Bouton Afficher listview
     @pyqtSlot()
@@ -220,11 +339,11 @@ class demoQt(QtWidgets.QMainWindow, interfacegraphique_.Ui_MainWindow):
         dialog = Fenetrelistview()
         dialog.setWindowTitle("Liste des étudiant.e.s")
 
-        # model = QStandardItemModel()
-        # dialog.listView_etudiants.setModel(model)
-        # for e in ls_Etudiants:
-        #     item = QStandardItem(e.Nom_Etud)
-        #     model.appendRow(item)
+        model = QStandardItemModel()
+        dialog.listView_etudiants.setModel(model)
+        for e in ls_Etudiants:
+            item = QStandardItem(e.Nom_Etud)
+            model.appendRow(item)
 
         dialog.show()
         reply = dialog.exec_()
@@ -258,7 +377,12 @@ def main():
     app = QtWidgets.QApplication(sys.argv)
     form = demoQt() #Nom de ma classe
     form.setWindowTitle("Gestion de scolarité")
-    form.label_erreur.setVisible(False)
+    form.label_erreur_Etu_Inexistant.setVisible(False)
+    form.label_erreur_Etu_Existe.setVisible(False)
+    form.label_erreur_nom.setVisible(False)
+    form.label_erreur_numero.setVisible(False)
+    form.label_erreur_date.setVisible(False)
+
     form.show()
     app.exec()
 
