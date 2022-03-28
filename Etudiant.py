@@ -29,11 +29,6 @@ class Etudiant:
         self.Date_Naiss = p_date_naiss
 
 
-    ############################################
-    #####  MÉTHODES D'ACCÈS ET PROPRIÉTÉS  #####
-    ############################################
-
-    # À ajouter ici :-)
 
     ############################################
     #####  MÉTHODES SPÉCIALES OU MAGIQUES  #####
@@ -56,17 +51,47 @@ class Etudiant:
         """
            Méthode permttant de sérialiser un objet de la classe Etudiant
            ::param p_fichier : Le nom du fichier qui contiendra l'objet sérialisé
+           :: return : retourne 0 si le fichier est ouvert et les informations y sont écrites,
+                       1 s'il y a erreur d'écriture et 2 s'il y a erreur d'ouverture
+
         """
-        with open(p_fichier , "w") as fichier:
-            json.dump(self.__dict__, fichier)
+        try:
+            with open(p_fichier , "w") as fichier:
+                try:
+                    json.dump(self.__dict__, fichier)
+                    return 0
+                except:
+                    return 1
+        except:
+            return 2
 
 
     def deserialiser(self, p_fichier):
         """
             Méthode permttant de désérialiser un objet de la classe Etudiant
             ::param p_fichier : Le nom du fichier qui contient l'objet sérialisé
-                """
+            :: return : retourne 0 si le fichier est ouvert et lu, 1 s'il y a erreur de lecture et 2 s'il y a erreur d'ouverture
+            """
+        try :
+            with open(p_fichier , "r") as fichier :
+                try :
+                    self.__dict__ = json.load(fichier)
+                    return 0
+                except :
+                    return 1
+        except :
 
-        with open(p_fichier , "r") as fichier :
-            self.__dict__ = json.load(fichier)
+            return 2
 
+    def age(self):
+        """
+           Méthode permettant de calculer l'age de l'étudiant
+           :: return : retourne l'âge de l'étudiant
+        """
+        import datetime
+        # Le formet de la date utilisé
+        format = '%Y-%m-%d'
+        date_naiss_str = datetime.datetime.strptime(self.Date_Naiss, format)
+        today = datetime.date.today()
+        return today.year - date_naiss_str.year - (
+                    (today.month, today.day) < (date_naiss_str.month, date_naiss_str.day))
