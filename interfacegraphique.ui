@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1147</width>
-    <height>745</height>
+    <width>1350</width>
+    <height>742</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,8 +35,8 @@
    <widget class="QLabel" name="label_numero">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>25</y>
+      <x>170</x>
+      <y>30</y>
       <width>271</width>
       <height>31</height>
      </rect>
@@ -75,7 +75,7 @@
      <rect>
       <x>160</x>
       <y>520</y>
-      <width>841</width>
+      <width>951</width>
       <height>171</height>
      </rect>
     </property>
@@ -144,7 +144,7 @@
    <widget class="QPushButton" name="pushButton_supprimer">
     <property name="geometry">
      <rect>
-      <x>820</x>
+      <x>670</x>
       <y>340</y>
       <width>151</width>
       <height>51</height>
@@ -162,7 +162,7 @@
    <widget class="QPushButton" name="pushButton_modifier">
     <property name="geometry">
      <rect>
-      <x>500</x>
+      <x>420</x>
       <y>340</y>
       <width>151</width>
       <height>51</height>
@@ -180,7 +180,7 @@
    <widget class="QLabel" name="label_programme">
     <property name="geometry">
      <rect>
-      <x>680</x>
+      <x>530</x>
       <y>190</y>
       <width>271</width>
       <height>41</height>
@@ -202,8 +202,8 @@
    <widget class="QComboBox" name="comboBox_programme">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>240</y>
+      <x>530</x>
+      <y>230</y>
       <width>291</width>
       <height>51</height>
      </rect>
@@ -250,7 +250,7 @@
    <widget class="QPushButton" name="pushButton_afficher_listview">
     <property name="geometry">
      <rect>
-      <x>820</x>
+      <x>670</x>
       <y>420</y>
       <width>151</width>
       <height>51</height>
@@ -268,7 +268,7 @@
    <widget class="QDateEdit" name="dateEdit_DNaiss">
     <property name="geometry">
      <rect>
-      <x>670</x>
+      <x>520</x>
       <y>70</y>
       <width>301</width>
       <height>51</height>
@@ -283,7 +283,7 @@
    <widget class="QLabel" name="label_date_naiss">
     <property name="geometry">
      <rect>
-      <x>670</x>
+      <x>520</x>
       <y>30</y>
       <width>271</width>
       <height>31</height>
@@ -305,7 +305,7 @@
    <widget class="QPushButton" name="pushButton_serealiser">
     <property name="geometry">
      <rect>
-      <x>500</x>
+      <x>420</x>
       <y>420</y>
       <width>151</width>
       <height>51</height>
@@ -349,10 +349,10 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>670</x>
+      <x>520</x>
       <y>120</y>
-      <width>471</width>
-      <height>31</height>
+      <width>371</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
@@ -363,7 +363,7 @@
      </font>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Date de naissance invalide. L'âge doit être supérieur à 18 ans.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Date de naissance invalide.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt; L'âge doit être supérieur à 18 ans.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_erreur_Etu_Existe">
@@ -405,9 +405,9 @@
    <widget class="QLabel" name="label_erreur_fichier">
     <property name="geometry">
      <rect>
-      <x>460</x>
+      <x>330</x>
       <y>480</y>
-      <width>271</width>
+      <width>541</width>
       <height>31</height>
      </rect>
     </property>
@@ -432,14 +432,179 @@
      <bool>false</bool>
     </property>
    </widget>
+   <widget class="QLabel" name="label_Numero_Casier">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>30</y>
+      <width>271</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Agency FB</family>
+      <pointsize>20</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Numéro de casier</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_numero_casier">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>70</y>
+      <width>231</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <italic>true</italic>
+     </font>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_localisationCasier">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>410</y>
+      <width>291</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <item>
+     <property name="text">
+      <string>Bloc A</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Bloc B</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Bloc C</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_localisation_Casier">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>360</y>
+      <width>271</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Agency FB</family>
+      <pointsize>20</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Localisation du casier</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_tailleCasier">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>230</y>
+      <width>291</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <item>
+     <property name="text">
+      <string>Petit</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Moyen</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Grand</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_Taille_Casier">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>190</y>
+      <width>271</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Agency FB</family>
+      <pointsize>20</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Taille du caiser</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_erreur_casier">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>120</y>
+      <width>371</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Numéro de casier invalide.					&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Le numéro de casier doit être une lettre et de 4 chiffres.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1147</width>
-     <height>26</height>
+     <width>1350</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>
